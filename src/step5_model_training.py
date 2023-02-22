@@ -79,14 +79,13 @@ class ModelTraining:
         Utility().create_folder(metrics_folder)
 
         with open(os.path.join(metrics_folder, metrics_filename), 'w') as json_file:
-            balanced_accuracy = dict()
-            balanced_accuracy['balanced_accuracy_score'] = balanced_accuracy_scr
-            balanced_accuracy['precision_score'] = p_scr
-            balanced_accuracy['recall_score'] = r_scr
-            balanced_accuracy['f1_score'] = f1_scr
+            metrics = dict()
+            metrics['balanced_accuracy_score'] = balanced_accuracy_scr
+            metrics['precision_score'] = p_scr
+            metrics['recall_score'] = r_scr
+            metrics['f1_score'] = f1_scr
 
-
-            json.dump(balanced_accuracy, json_file, indent=4)
+            json.dump(metrics, json_file, indent=4)
         
         clf_report_path = params['metrics_path']['clf_report_filename']
 

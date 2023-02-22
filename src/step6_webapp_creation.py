@@ -210,20 +210,6 @@ class WebApp:
 
                 st.subheader(f"Patient's predicted condition:   {prediction}")
                 
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
 if __name__ == "__main__":
     wa = WebApp()
     wa.webapp()

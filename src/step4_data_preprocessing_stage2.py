@@ -42,11 +42,7 @@ class PreprocessStage2:
         This method is performs the following tasks:
         - Splitting the data into training and testing data
         - Imputing the null values from the columns
-        - Encoding the categorical values from the categorical columns
-        - Training the model using training data
-        - Evaluating the model on the testing data
-        - Saving the evaluated metrics in a json file 
-        - Saving the trained model as a joblib file
+        - Encoding the categorical values from the categorical columns and target column
 
         Args:
             config_path: Path to the parameters yaml file
