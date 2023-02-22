@@ -1,0 +1,62 @@
+General:
+  list_of_columns_to_remove:
+    - patient_id
+    - TSH_measured
+    - T3_measured
+    - TT4_measured
+    - T4U_measured
+    - FTI_measured
+    - TBG_measured
+  random_state: 123
+  test_size: 0.1
+  target_column_name: target
+
+logging_folder_paths:
+  main_log_foldername: Logs
+  data_loading: make_dataset.log
+  data_validation: data_validation.log
+  data_preprocess: data_processing.log
+  model_creation: model_creation.log
+  make_predictions: make_predictions.log
+
+data_location:
+  data_url_base: https://drive.google.com/uc?id=
+  data_url: https://drive.google.com/file/d/1xEM4cjfUHftVelPE-nInrY8Tbzr9yG-r/view?usp=sharing ## database for the data
+
+  main_data_folder: Data
+
+  raw_data_folder: Raw_data
+  raw_data_filename: ThyroidRawData.csv
+
+  interm1_data_foldername: Interm1 ## data after removing unnecessary columns
+  interm1_data_filename: ThyroidInterm1Data.csv
+
+  interm2_data_foldername: Interm2 ## data after fixing illogical ages
+  interm2_data_filename: ThyroidInterm2Data.csv
+
+  processed_stage1_data_foldername: Processed_stage1 ## data after replacing dash from target column with Others
+  processed_stage1_data_filename: ThyoidProcessedStage1Data.csv
+
+  processed_stage2_data_foldername: Processed_stage2 ## data after doing missing value imputation and categorical value encoding
+  processed_stage2_data_filename_X_train: X_train.csv
+  processed_stage2_data_filename_X_val: X_val.csv
+  processed_stage2_data_filename_y_train: y_train.csv
+  processed_stage2_data_filename_y_val: y_val.csv
+
+
+preprocess:
+  preprocess_pipe_foldername: Preprocess_pipeline
+  preprocess_pipe_filename: preprocess_pipeline.pkl
+  le_transformer_filename: le_transforme.pkl
+
+model:
+  model_foldername: Models
+  model_name: model.joblib
+
+metrics_path:
+  metrics_folder: Metrics
+  metrics_file: metrics.json
+  clf_report_filename: classification_report.csv
+
+
+
