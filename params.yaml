@@ -37,7 +37,7 @@ data_location:
   processed_stage1_data_foldername: Processed_stage1 ## data after replacing dash from target column with Others
   processed_stage1_data_filename: ThyoidProcessedStage1Data.csv
 
-  processed_stage2_data_foldername: Processed_stage2 ## data after doing missing value imputation and categorical value encoding
+  processed_stage2_data_foldername: Processed_Data ## data after doing missing value imputation and categorical value encoding
   processed_stage2_data_filename_X_train: X_train.csv
   processed_stage2_data_filename_X_val: X_val.csv
   processed_stage2_data_filename_y_train: y_train.csv

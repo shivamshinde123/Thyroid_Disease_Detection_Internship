@@ -1,0 +1,10 @@
+2023-02-22 14:34:54,697 : INFO : step2_training_Data_Validation.py : Input raw data validation started.
+2023-02-22 14:34:55,530 : WARNING : step2_training_Data_Validation.py : 4 validation errors for dataframe_validator
+df_dict -> 2976 -> age
+  ensure this value is less than or equal to 100 (type=value_error.number.not_le; limit_value=100)
+df_dict -> 5710 -> age
+  ensure this value is less than or equal to 100 (type=value_error.number.not_le; limit_value=100)
+df_dict -> 6392 -> age
+  ensure this value is less than or equal to 100 (type=value_error.number.not_le; limit_value=100)
+df_dict -> 8105 -> age
+  ensure this value is less than or equal to 100 (type=value_error.number.not_le; limit_value=100)

@@ -1,0 +1,18 @@
+2023-02-22 14:35:04,886 : INFO : step3_data_preprocessing_stage1.py : Data preprocessing started.
+2023-02-22 14:35:05,007 : INFO : step3_data_preprocessing_stage1.py : Removed unnecessary columns from the data.
+2023-02-22 14:35:05,147 : INFO : step3_data_preprocessing_stage1.py : Removed values of the column age that does not make sense.
+2023-02-22 14:35:05,283 : INFO : step3_data_preprocessing_stage1.py : Replaced dash with others in target column.
+2023-02-22 14:35:20,424 : INFO : step4_data_preprocessing_stage2.py : Splitting the data into independent and dependent features.
+2023-02-22 14:35:20,432 : INFO : step4_data_preprocessing_stage2.py : Splitting the data into the data for training and the data for validation.
+2023-02-22 14:35:20,445 : INFO : step4_data_preprocessing_stage2.py : Creating a pipeline to preprocess the categorical features in the data.
+2023-02-22 14:35:20,445 : INFO : step4_data_preprocessing_stage2.py : Creating a pipeline to preprocess the numerical features in the data.
+2023-02-22 14:35:20,445 : INFO : step4_data_preprocessing_stage2.py : Combining the preprocess pipelines created for categorical and numerical data preprocessing.
+2023-02-22 14:35:20,445 : INFO : step4_data_preprocessing_stage2.py : Training the whole preprocess pipeline on the train data.
+2023-02-22 14:35:20,445 : INFO : step4_data_preprocessing_stage2.py : Tranforming the train data using fitted preprocess pipeline.
+2023-02-22 14:35:20,537 : INFO : step4_data_preprocessing_stage2.py : Tranforming the test data using fitted preprocess pipeline.
+2023-02-22 14:35:20,550 : INFO : step4_data_preprocessing_stage2.py : Saving the fitted preprocess pipeline as a python pickle file.
+2023-02-22 14:35:20,857 : INFO : step4_data_preprocessing_stage2.py : Preprocess X_train saved.
+2023-02-22 14:35:20,891 : INFO : step4_data_preprocessing_stage2.py : Preprocessed X_val saved
+2023-02-22 14:35:20,912 : INFO : step4_data_preprocessing_stage2.py : Preprocessed y_train saved
+2023-02-22 14:35:20,918 : INFO : step4_data_preprocessing_stage2.py : Preprocessed y_val saved
+2023-02-22 14:35:20,929 : INFO : step4_data_preprocessing_stage2.py : Data preprocessing completed successfully.

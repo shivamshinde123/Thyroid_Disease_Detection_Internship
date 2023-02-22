@@ -185,7 +185,13 @@ class PreprocessStage2:
                 main_data_foldername, processed_stage2_data_foldername, processed_stage2_data_filename_y_val), index=False, sep=',')
             logger.info('Preprocessed y_val saved')
 
+            interm1_data_foldername = params['data_location']['interm1_data_foldername']
+            interm2_data_foldername = params['data_location']['interm2_data_foldername']
 
+            shutil.rmtree(os.path.join(main_data_foldername, interm1_data_foldername))
+            shutil.rmtree(os.path.join(main_data_foldername, interm2_data_foldername))
+            shutil.rmtree(os.path.join(main_data_foldername, processed_stage1_data_foldername))
+            
         except Exception as e:
             logger.error(e)
             raise e
