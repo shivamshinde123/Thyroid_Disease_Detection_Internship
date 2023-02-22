@@ -1,5 +1,6 @@
 # General
 /thyroid_detection/
+/.pytest_cache/
 
 
 # Byte-compiled / optimized / DLL files
