@@ -29,11 +29,16 @@ class PreprocessStage1:
         pass
 
     def remove_unneccessary_columns(self, lst_of_useless_cols):
-        """This method is used to remove the column which doesn't contribute to the model training
+        """This method is used to remove the feature that doesn't contribute to the model training
 
-        Args: List of unneccessary columns 
+        Parameters
+        -----------
 
-        Returns: None
+        lst_of_useless_cols: The list of names of features that needs to be removed.
+
+        Returns
+        --------
+        None
         """
 
         try:
@@ -43,9 +48,11 @@ class PreprocessStage1:
             interm1_data_foldername = params['data_location']['interm1_data_foldername']
             interm1_data_filename = params['data_location']['interm1_data_filename']
 
+            # Reading the raw data
             df = pd.read_csv(os.path.join(main_data_foldername,
                                           raw_data_foldername, raw_data_filename))
 
+            # Removing the unnecessary features
             for feature in lst_of_useless_cols:
                 df.drop(feature, axis=1, inplace=True)
 
@@ -53,6 +60,7 @@ class PreprocessStage1:
             Utility().create_folder(main_data_foldername)
             Utility().create_folder(os.path.join(main_data_foldername, interm1_data_foldername))
 
+            # Saving the data to new folder
             df.to_csv(os.path.join(main_data_foldername, interm1_data_foldername,
                                    interm1_data_filename), index=False, sep=',')
 
@@ -63,11 +71,16 @@ class PreprocessStage1:
             raise e
 
     def converting_illogical_ages_to_null(self):
-        """This method is used to convert the illogical ages from the data to the null values. This is to be done in order to reduce the false information in the dataset
+        """This method is used replace the ages that are invalid intutively (i.e., age less 0 or age greater than 100) with null values.
 
-        Args: None
+        Parameters
+        -----------
 
-        Returns: None
+        None
+
+        Returns
+        --------
+        None
         """
         try:
             main_data_foldername = params['data_location']['main_data_folder']
@@ -76,9 +89,11 @@ class PreprocessStage1:
             interm2_data_foldername = params['data_location']['interm2_data_foldername']
             interm2_data_filename = params['data_location']['interm2_data_filename']
 
+            # Reading the interm1 data
             df = pd.read_csv(os.path.join(main_data_foldername,
                                           interm1_data_foldername, interm1_data_filename))
 
+            # Replacing the invalid ages with numpy nan values
             df['age'] = np.where(df['age'] > 100, np.nan, df['age'])
             df['age'] = np.where(df['age'] <= 0, np.nan, df['age'])
 
@@ -86,6 +101,7 @@ class PreprocessStage1:
             Utility().create_folder(main_data_foldername)
             Utility().create_folder(os.path.join(main_data_foldername, interm2_data_foldername))
 
+            # Saving the processed data to the new folder
             df.to_csv(os.path.join(main_data_foldername, interm2_data_foldername,
                                    interm2_data_filename), index=False, sep=',')
 
@@ -97,13 +113,17 @@ class PreprocessStage1:
             raise e
 
     def replacing_dash_with_others_in_target_column(self):
-        """This method is used to replace the '-' value present in the target column with 'Others'
+        """This method is used replace the dash ('-') feature value in target column with 'Others' string
 
-        Args: None
+        Parameters
+        -----------
 
-        Returns: None
+        None
+
+        Returns
+        --------
+        None
         """
-
         try:
             main_data_foldername = params['data_location']['main_data_folder']
             interm2_data_foldername = params['data_location']['interm2_data_foldername']
@@ -111,16 +131,20 @@ class PreprocessStage1:
             processed_stage1_data_foldername = params['data_location']['processed_stage1_data_foldername']
             processed_stage1_data_filename = params['data_location']['processed_stage1_data_filename']
 
+            # Reading the interm2 data
             df = pd.read_csv(os.path.join(main_data_foldername,
                                           interm2_data_foldername, interm2_data_filename))
 
+            # Replacing the dash ('-') from the target column with the 'Others' string
             df['target'] = np.where(
                 df['target'] == '-', 'Others', df['target'])
 
             # Creating a Data folder to save the processed data
             Utility().create_folder(main_data_foldername)
-            Utility().create_folder(os.path.join(main_data_foldername, processed_stage1_data_foldername))
+            Utility().create_folder(os.path.join(
+                main_data_foldername, processed_stage1_data_foldername))
 
+            # Saving the processed data to the new folder
             df.to_csv(os.path.join(main_data_foldername, processed_stage1_data_foldername,
                                    processed_stage1_data_filename), index=False, sep=',')
 

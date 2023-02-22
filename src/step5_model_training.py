@@ -36,74 +36,95 @@ class ModelTraining:
         pass
 
     def model_training(self):
+        """This method is used to train a model on training data and also to evaluate the trained model on the validation data
 
-        main_data_foldername = params['data_location']['main_data_folder']
-        processed_stage2_data_foldername = params['data_location']['processed_stage2_data_foldername']
-        processed_stage2_data_filename_X_train = params['data_location']['processed_stage2_data_filename_X_train']
-        processed_stage2_data_filename_X_val = params['data_location']['processed_stage2_data_filename_X_val']
-        processed_stage2_data_filename_y_train = params['data_location']['processed_stage2_data_filename_y_train']
-        processed_stage2_data_filename_y_val = params['data_location']['processed_stage2_data_filename_y_val']
+        Parameters
+        -----------
 
+        None
 
-        X_train = pd.read_csv(os.path.join(main_data_foldername, processed_stage2_data_foldername, processed_stage2_data_filename_X_train)).values
-        X_val = pd.read_csv(os.path.join(main_data_foldername, processed_stage2_data_foldername, processed_stage2_data_filename_X_val)).values
-        y_train = pd.read_csv(os.path.join(main_data_foldername, processed_stage2_data_foldername, processed_stage2_data_filename_y_train)).values.flatten()
-        y_val = pd.read_csv(os.path.join(main_data_foldername, processed_stage2_data_foldername, processed_stage2_data_filename_y_val)).values.flatten()
+        Returns
+        --------
+        None
+        """
 
-        # 4. Creating a pipeline for model training
-        xgboost_pipe = Pipeline([
-            ('xgboost', XGBClassifier(max_depth=2))
-        ])
-        logger.info('Model initialized')
+        try:
+            main_data_foldername = params['data_location']['main_data_folder']
+            processed_stage2_data_foldername = params['data_location']['processed_stage2_data_foldername']
+            processed_stage2_data_filename_X_train = params[
+                'data_location']['processed_stage2_data_filename_X_train']
+            processed_stage2_data_filename_X_val = params[
+                'data_location']['processed_stage2_data_filename_X_val']
+            processed_stage2_data_filename_y_train = params[
+                'data_location']['processed_stage2_data_filename_y_train']
+            processed_stage2_data_filename_y_val = params[
+                'data_location']['processed_stage2_data_filename_y_val']
 
-        # 5. Fitting the model on train data
-        xgbc = xgboost_pipe.fit(X_train, y_train)
-        logger.info('Model trained on the train data.')
+            X_train = pd.read_csv(os.path.join(
+                main_data_foldername, processed_stage2_data_foldername, processed_stage2_data_filename_X_train)).values
+            X_val = pd.read_csv(os.path.join(
+                main_data_foldername, processed_stage2_data_foldername, processed_stage2_data_filename_X_val)).values
+            y_train = pd.read_csv(os.path.join(main_data_foldername, processed_stage2_data_foldername,
+                                               processed_stage2_data_filename_y_train)).values.flatten()
+            y_val = pd.read_csv(os.path.join(main_data_foldername, processed_stage2_data_foldername,
+                                processed_stage2_data_filename_y_val)).values.flatten()
 
-        # 6. Predicting metrics using the trained model and the test data
-        y_pred = xgbc.predict(X_val)
+            # Initializing a machine learning model
+            xgboost_pipe = XGBClassifier(max_depth=2)
+            logger.info('Model initialized')
 
-        balanced_accuracy_scr = balanced_accuracy_score(y_val, y_pred)
-        p_scr = precision_score(y_val, y_pred, average='weighted')
-        r_scr = recall_score(y_val, y_pred, average='weighted')
-        f1_scr = f1_score(y_val, y_pred, average='weighted')
-        clf_report = classification_report(y_val, y_pred, output_dict=True)
-        clf_report = pd.DataFrame(clf_report).transpose()
+            # Fitting the model on train data
+            xgbc = xgboost_pipe.fit(X_train, y_train)
+            logger.info('Model trained on the train data.')
 
-        logger.info('Trained model evaluation done using validation data.')
+            # Predicting metrics using the trained model and the test data
+            y_pred = xgbc.predict(X_val)
 
-        # 7. Saving the calculated metrics into a json file in the reports folder
-        metrics_folder = params['metrics_path']['metrics_folder']
-        metrics_filename = params['metrics_path']['metrics_file']
+            balanced_accuracy_scr = balanced_accuracy_score(y_val, y_pred)
+            p_scr = precision_score(y_val, y_pred, average='weighted')
+            r_scr = recall_score(y_val, y_pred, average='weighted')
+            f1_scr = f1_score(y_val, y_pred, average='weighted')
+            clf_report = classification_report(y_val, y_pred, output_dict=True)
+            clf_report = pd.DataFrame(clf_report).transpose()
 
-        Utility().create_folder(metrics_folder)
+            logger.info('Trained model evaluation done using validation data.')
 
-        with open(os.path.join(metrics_folder, metrics_filename), 'w') as json_file:
-            metrics = dict()
-            metrics['balanced_accuracy_score'] = balanced_accuracy_scr
-            metrics['precision_score'] = p_scr
-            metrics['recall_score'] = r_scr
-            metrics['f1_score'] = f1_scr
+            # Saving the calculated metrics into a json file in the Metrics folder
+            metrics_folder = params['metrics_path']['metrics_folder']
+            metrics_filename = params['metrics_path']['metrics_file']
 
-            json.dump(metrics, json_file, indent=4)
-        
-        clf_report_path = params['metrics_path']['clf_report_filename']
+            Utility().create_folder(metrics_folder)
 
-        clf_report.to_csv(os.path.join(metrics_folder, clf_report_path))
+            with open(os.path.join(metrics_folder, metrics_filename), 'w') as json_file:
+                metrics = dict()
+                metrics['balanced_accuracy_score'] = balanced_accuracy_scr
+                metrics['precision_score'] = p_scr
+                metrics['recall_score'] = r_scr
+                metrics['f1_score'] = f1_scr
 
-        logger.info('Saved evaluations in files.')
+                json.dump(metrics, json_file, indent=4)
 
-        # 8. Saving the model in the models folder
-        model_foldername = params['model']['model_foldername']
-        model_name = params['model']['model_name']
+            clf_report_path = params['metrics_path']['clf_report_filename']
 
-        Utility().create_folder(model_foldername)
+            clf_report.to_csv(os.path.join(metrics_folder, clf_report_path))
 
-        model_dir = os.path.join(model_foldername, model_name)
+            logger.info('Saved evaluations in files.')
 
-        joblib.dump(xgbc, model_dir)
+            # Saving the trained machine learing model in the models folder
+            model_foldername = params['model']['model_foldername']
+            model_name = params['model']['model_name']
 
-        logger.info('Trained model saved as a joblib file.')
+            Utility().create_folder(model_foldername)
+
+            model_dir = os.path.join(model_foldername, model_name)
+
+            joblib.dump(xgbc, model_dir)
+
+            logger.info('Trained model saved as a joblib file.')
+
+        except Exception as e:
+            logger.error(e)
+            raise e
 
 
 if __name__ == "__main__":

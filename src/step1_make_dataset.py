@@ -14,7 +14,8 @@ params = Utility().read_params()
 main_log_folderpath = params['logging_folder_paths']['main_log_foldername']
 make_data_path = params['logging_folder_paths']['data_loading']
 
-file_handler = logging.FileHandler(os.path.join(main_log_folderpath, make_data_path))
+file_handler = logging.FileHandler(
+    os.path.join(main_log_folderpath, make_data_path))
 formatter = logging.Formatter(
     '%(asctime)s : %(levelname)s : %(filename)s : %(message)s')
 
@@ -34,6 +35,8 @@ class MakeDataset:
         -----------
 
         url: URL of the data
+        filename: Name of the file after saving to the local storage
+
         Returns
         --------
         None

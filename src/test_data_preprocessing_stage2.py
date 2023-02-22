@@ -82,7 +82,7 @@ def test_check_if_categorical_features_are_encoded(params):
         assert X_train[feature].dtypes != 'O'
         assert X_val[feature].dtypes != 'O'
     
-    target_column_name = params['General']['target_column_name']
+    target_column_name = params['General']['target_column_name'] 
 
     assert y_train[target_column_name].dtypes != 'O'
     assert y_val[target_column_name].dtypes != 'O'

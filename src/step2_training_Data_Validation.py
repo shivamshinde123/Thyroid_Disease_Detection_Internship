@@ -16,13 +16,13 @@ params = Utility().read_params()
 main_log_folderpath = params['logging_folder_paths']['main_log_foldername']
 data_validation_path = params['logging_folder_paths']['data_validation']
 
-file_handler = logging.FileHandler(os.path.join(main_log_folderpath, data_validation_path))
+file_handler = logging.FileHandler(os.path.join(
+    main_log_folderpath, data_validation_path))
 formatter = logging.Formatter(
     '%(asctime)s : %(levelname)s : %(filename)s : %(message)s')
 
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
-
 
 
 class Dictvalidator(BaseModel):
@@ -58,30 +58,27 @@ class Dictvalidator(BaseModel):
     referral_source: str
     target: str
     patient_id: Optional[int]
-    
 
 
 class dataframe_validator(BaseModel):
-    
+
     df_dict: List[Dictvalidator]
 
 
 if __name__ == '__main__':
-    
+
     main_data_folder = params['data_location']['main_data_folder']
     raw_data_folder = params['data_location']['raw_data_folder']
     raw_data_filename = params['data_location']['raw_data_filename']
 
-    raw_data_file_path = os.path.join(main_data_folder, raw_data_folder, raw_data_filename)
+    raw_data_file_path = os.path.join(
+        main_data_folder, raw_data_folder, raw_data_filename)
 
     df = pd.read_csv(raw_data_file_path)
-    
+
     try:
         logger.info('Input raw data validation started.')
         dataframe_validator(df_dict=df.to_dict(orient='records'))
         logger.info('Input raw data validation successfully completed.')
     except ValidationError as e:
         logger.warning(e)
-
-
-

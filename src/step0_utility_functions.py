@@ -21,6 +21,7 @@ class Utility:
         """
 
         try:
+            # Creating a directory if it does not exist already
             if not os.path.exists(folder_name):
                 os.makedirs(folder_name)
 
@@ -41,7 +42,7 @@ class Utility:
         """
 
         try:
-            ## Reading params yaml file
+            # Reading params yaml file
             with open(self.params_path, 'r') as params_file:
                 params = yaml.safe_load(params_file)
 
