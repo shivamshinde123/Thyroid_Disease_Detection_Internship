@@ -1,4 +1,3 @@
-
 from step0_utility_functions import Utility
 import pandas as pd
 import numpy as np
@@ -191,7 +190,7 @@ class PreprocessStage2:
             shutil.rmtree(os.path.join(main_data_foldername, interm1_data_foldername))
             shutil.rmtree(os.path.join(main_data_foldername, interm2_data_foldername))
             shutil.rmtree(os.path.join(main_data_foldername, processed_stage1_data_foldername))
-            
+
         except Exception as e:
             logger.error(e)
             raise e
