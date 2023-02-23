@@ -86,8 +86,7 @@ class ModelTraining:
 
 
                 xgboost_pipe = XGBClassifier(
-                    max_depth=max_depth, n_estimators=n_estimators, max_leaves=max_leaves, learning_rate=learning_rate,
-                    min_child_weight=min_child_weight, gamma=gamma, colsample_bytree=colsample_bytree)
+                    max_depth=max_depth, n_estimators=n_estimators, max_leaves=max_leaves, learning_rate=learning_rate)
                 logger.info('Model initialized')
 
                 # Fitting the model on train data
