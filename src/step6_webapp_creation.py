@@ -196,7 +196,6 @@ class WebApp:
 
                     # Loading saved preprocess pipeline
                     st.cache_data
-
                     def load_preprocess(preprocess_pipe_foldername, preprocess_pipe_filename, le_transformer_filename):
                         with open(os.path.join(preprocess_pipe_foldername, preprocess_pipe_filename), 'rb') as f:
                             preprocess_pipeline = dill.load(f)
@@ -209,7 +208,6 @@ class WebApp:
 
                     # Loading the saved machine learning model
                     st.cache_data
-
                     def load_model(model_foldername, model_name):
                         model = joblib.load(os.path.join(
                             model_foldername, model_name))
