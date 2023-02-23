@@ -18,7 +18,7 @@ disease or not.
 
 # Project Demonstration
 
-Check out the project demo at https://youtu.be/8IcTGZ6nDA0
+Check out the project demo at https://youtu.be/63lXmCE2WMo
 
 # Deployed app link
 
@@ -32,7 +32,7 @@ Check out the deployed app at https://shivamshinde123-thyroid-disease-srcstep6-w
 *   params.yaml
 *   README.md
 *   requirements.txt
-*
+*   
 *               
 ****.streamlit
 *       config.toml
@@ -48,7 +48,11 @@ Check out the deployed app at https://shivamshinde123-thyroid-disease-srcstep6-w
 *           ThyroidRawData.csv
 *           
 ****docs
+*       Detail Project Report (DPR).pptx
+*       HLD.docx
+*       LLD.docx
 *       Problem_Statement.pdf
+*       wireframe1.docx
 *       
 ****Logs
 *       data_processing.log
@@ -61,8 +65,8 @@ Check out the deployed app at https://shivamshinde123-thyroid-disease-srcstep6-w
 *       metrics.json
 *       
 ****mlruns
-*   **** many_files_show_in_this_directory
-*   
+*   **** to_many_files_to_show
+*
 ****Models
 *       model.joblib
 *       
@@ -105,7 +109,7 @@ Quinlan,Ross. (1987). Thyroid Disease. UCI Machine Learning Repository. https://
 
 
 # Python Libraries and tools Used
-<img src="http://img.shields.io/badge/-Git-F05032?style=flat&logo=git&logoColor=FFFFFF"> <img src = "https://img.shields.io/badge/-NumPy-013243?style=flat&logo=NumPy&logoColor=white"> <img src = "https://img.shields.io/badge/-Pandas-150458?style=flat&logo=pandas&logoColor=white"> <img src = "https://img.shields.io/badge/-Matplotlib-FF6666?style=flat&logoColor=white"> <img src = "https://img.shields.io/badge/-Seaborn-5A20CB?style=flat&logoColor=white"> <img src="http://img.shields.io/badge/-sklearn-F7931E?style=flat&logo=scikit-learn&logoColor=FFFFFF">  <img src = "https://img.shields.io/badge/-Streamlit-FF4B4B?style=flat&logo=Streamlit&logoColor=white"> <img src = "https://img.shields.io/badge/-mlflow-0194E2?style=flat&logo=mlflow&logoColor=white">
+<img src="http://img.shields.io/badge/-Git-F05032?style=flat&logo=git&logoColor=FFFFFF"> <img src = "https://img.shields.io/badge/-NumPy-013243?style=flat&logo=NumPy&logoColor=white"> <img src = "https://img.shields.io/badge/-Pandas-150458?style=flat&logo=pandas&logoColor=white"> <img src="http://img.shields.io/badge/-sklearn-F7931E?style=flat&logo=scikit-learn&logoColor=FFFFFF">  <img src = "https://img.shields.io/badge/-Streamlit-FF4B4B?style=flat&logo=Streamlit&logoColor=white"> <img src = "https://img.shields.io/badge/-mlflow-0194E2?style=flat&logo=mlflow&logoColor=white"> <img src = "https://img.shields.io/badge/-Pydantic-000000?style=flat&logoColor=white">
 
 ## Run Locally
 
