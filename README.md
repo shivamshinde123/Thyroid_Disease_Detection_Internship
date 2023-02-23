@@ -24,6 +24,72 @@ Check out the project demo at https://youtu.be/8IcTGZ6nDA0
 
 Check out the deployed app at https://shivamshinde123-thyroid-disease-srcstep6-webapp-creation-b25273.streamlit.app/
 
+# Project structure
+
+```bash
+*   .gitignore
+*   LICENSE
+*   params.yaml
+*   README.md
+*   requirements.txt
+*
+*               
+****.streamlit
+*       config.toml
+*       
+****Data
+*   ****Processed_Data
+*   *       X_train.csv
+*   *       X_val.csv
+*   *       y_train.csv
+*   *       y_val.csv
+*   *       
+*   ****Raw_data
+*           ThyroidRawData.csv
+*           
+****docs
+*       Problem_Statement.pdf
+*       
+****Logs
+*       data_processing.log
+*       data_validation.log
+*       make_dataset.log
+*       model_creation.log
+*       
+****Metrics
+*       classification_report.csv
+*       metrics.json
+*       
+****mlruns
+*   **** many_files_show_in_this_directory
+*   
+****Models
+*       model.joblib
+*       
+****notebooks
+*       EDA.ipynb
+*       schema_in.json
+*       
+****Preprocess_pipeline
+*       le_transforme.pkl
+*       preprocess_pipeline.pkl
+*       
+****src
+*   *   step0_utility_functions.py
+*   *   step1_make_dataset.py
+*   *   step2_training_Data_Validation.py
+*   *   step3_data_preprocessing_stage1.py
+*   *   step4_data_preprocessing_stage2.py
+*   *   step5_model_training.py
+*   *   step6_webapp_creation.py
+*   *   test_data_preprocessing_stage1.py
+*   *   test_data_preprocessing_stage2.py
+*   *   test_make_dataset.py
+*   *   test_model_training.py
+*   *   __init__.py
+
+```
+
 # Data used
 
 Get the data from https://archive-beta.ics.uci.edu/dataset/102/thyroid+disease  
