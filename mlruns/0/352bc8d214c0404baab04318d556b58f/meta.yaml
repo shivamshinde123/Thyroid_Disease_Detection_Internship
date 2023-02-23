@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/shiva/Desktop/Thyroid_detection_internship/mlruns/0/352bc8d214c0404baab04318d556b58f/artifacts
+end_time: 1677138149175
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 352bc8d214c0404baab04318d556b58f
+run_name: receptive-boar-36
+run_uuid: 352bc8d214c0404baab04318d556b58f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1677138128071
+status: 3
+tags: []
+user_id: shiva

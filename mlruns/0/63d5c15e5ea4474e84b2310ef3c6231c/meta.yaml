@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/shiva/Desktop/Thyroid_detection_internship/mlruns/0/63d5c15e5ea4474e84b2310ef3c6231c/artifacts
+end_time: 1677137737451
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 63d5c15e5ea4474e84b2310ef3c6231c
+run_name: languid-shrew-510
+run_uuid: 63d5c15e5ea4474e84b2310ef3c6231c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1677137715750
+status: 3
+tags: []
+user_id: shiva

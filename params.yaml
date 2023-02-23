@@ -50,6 +50,11 @@ preprocess:
   le_transformer_filename: le_transforme.pkl
 
 model:
+  params:
+    n_estimators: 500
+    max_depth: 4
+    max_leaves: 2
+    learning_rate: 0.01
   model_foldername: Models
   model_name: model.joblib
 

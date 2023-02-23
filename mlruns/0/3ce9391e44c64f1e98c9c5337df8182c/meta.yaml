@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/shiva/Desktop/Thyroid_detection_internship/mlruns/0/3ce9391e44c64f1e98c9c5337df8182c/artifacts
+end_time: 1677138502393
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3ce9391e44c64f1e98c9c5337df8182c
+run_name: traveling-boar-483
+run_uuid: 3ce9391e44c64f1e98c9c5337df8182c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1677138502337
+status: 4
+tags: []
+user_id: shiva
