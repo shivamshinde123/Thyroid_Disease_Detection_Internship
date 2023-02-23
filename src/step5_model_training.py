@@ -1,7 +1,7 @@
 
 from sklearn.pipeline import Pipeline
 from xgboost import XGBClassifier
-from sklearn.metrics import balanced_accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, precision_recall_curve, confusion_matrix, classification_report
+from sklearn.metrics import balanced_accuracy_score, precision_score, recall_score, f1_score, classification_report
 import json
 import os
 import joblib
@@ -11,6 +11,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from step0_utility_functions import Utility
+import mlflow
+import mlflow.sklearn
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -70,24 +72,47 @@ class ModelTraining:
                                 processed_stage2_data_filename_y_val)).values.flatten()
 
             # Initializing a machine learning model
-            xgboost_pipe = XGBClassifier(max_depth=2)
-            logger.info('Model initialized')
 
-            # Fitting the model on train data
-            xgbc = xgboost_pipe.fit(X_train, y_train)
-            logger.info('Model trained on the train data.')
+            with mlflow.start_run():
+                max_depth = params['model']['params']['max_depth']
+                n_estimators = params['model']['params']['n_estimators']
+                max_leaves = params['model']['params']['max_leaves']
+                learning_rate = params['model']['params']['learning_rate']
 
-            # Predicting metrics using the trained model and the test data
-            y_pred = xgbc.predict(X_val)
+                mlflow.log_param('max_depth', max_depth)
+                mlflow.log_param('n_estimators', n_estimators)
+                mlflow.log_param('max_leaves', max_leaves)
+                mlflow.log_param('learning_rate', learning_rate)
 
-            balanced_accuracy_scr = balanced_accuracy_score(y_val, y_pred)
-            p_scr = precision_score(y_val, y_pred, average='weighted')
-            r_scr = recall_score(y_val, y_pred, average='weighted')
-            f1_scr = f1_score(y_val, y_pred, average='weighted')
-            clf_report = classification_report(y_val, y_pred, output_dict=True)
-            clf_report = pd.DataFrame(clf_report).transpose()
 
-            logger.info('Trained model evaluation done using validation data.')
+                xgboost_pipe = XGBClassifier(
+                    max_depth=max_depth, n_estimators=n_estimators, max_leaves=max_leaves, learning_rate=learning_rate,
+                    min_child_weight=min_child_weight, gamma=gamma, colsample_bytree=colsample_bytree)
+                logger.info('Model initialized')
+
+                # Fitting the model on train data
+                xgbc = xgboost_pipe.fit(X_train, y_train)
+                logger.info('Model trained on the train data.')
+
+                # Predicting metrics using the trained model and the test data
+                y_pred = xgbc.predict(X_val)
+
+                balanced_accuracy_scr = balanced_accuracy_score(y_val, y_pred)
+                p_scr = precision_score(y_val, y_pred, average='weighted')
+                r_scr = recall_score(y_val, y_pred, average='weighted')
+                f1_scr = f1_score(y_val, y_pred, average='weighted')
+                clf_report = classification_report(
+                    y_val, y_pred, output_dict=True)
+                clf_report = pd.DataFrame(clf_report).transpose()
+
+                mlflow.log_metric('balanced_accuracy_score',
+                                  balanced_accuracy_scr)
+                mlflow.log_metric('precision_score', p_scr)
+                mlflow.log_metric('recall_score', r_scr)
+                mlflow.log_metric('f1_score', f1_scr)
+
+                logger.info(
+                    'Trained model evaluation done using validation data.')
 
             # Saving the calculated metrics into a json file in the Metrics folder
             metrics_folder = params['metrics_path']['metrics_folder']
