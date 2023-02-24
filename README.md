@@ -166,6 +166,11 @@ Training a machine learning model using preprocessed data and also evluating met
 ```bash
   python src/step5_model_training.py
 ```
+Visualize the metrics in different experiments
+
+```bash
+  mlflow ui
+```
 Testing the code for
  - Data Loading
  - Data Validation
