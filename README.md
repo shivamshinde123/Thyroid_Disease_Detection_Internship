@@ -22,7 +22,7 @@ Check out the project demo at https://youtu.be/63lXmCE2WMo
 
 # Deployed app link
 
-Check out the deployed app at https://shivamshinde123-thyroid-disease-srcstep6-webapp-creation-b25273.streamlit.app/
+Check out the deployed app at https://shivamshinde123-thyroid-disease-detection-inte-srcwebapp-5pzpa1.streamlit.app/
 
 # Project structure
 
