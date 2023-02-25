@@ -79,17 +79,20 @@ Check out the deployed app at https://shivamshinde123-thyroid-disease-srcstep6-w
 *       preprocess_pipeline.pkl
 *       
 ****src
+*   ****pages
+*         1-feature-discription.py
+*         2-different-thyroid-conditions.py
 *   *   step0_utility_functions.py
 *   *   step1_make_dataset.py
 *   *   step2_training_Data_Validation.py
 *   *   step3_data_preprocessing_stage1.py
 *   *   step4_data_preprocessing_stage2.py
 *   *   step5_model_training.py
-*   *   step6_webapp_creation.py
 *   *   test_data_preprocessing_stage1.py
 *   *   test_data_preprocessing_stage2.py
 *   *   test_make_dataset.py
 *   *   test_model_training.py
+*   *   webapp.py
 *   *   __init__.py
 
 ```
@@ -179,7 +182,7 @@ Testing the code for
 Make predictions using trained model
 
 ```bash
-  streamlit run src/step6_webapp_creation.py
+  streamlit run src/webapp.py
 ```
 
 ## 🚀 About Me
