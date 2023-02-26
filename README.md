@@ -18,7 +18,7 @@ disease or not.
 
 # Project Demonstration
 
-Check out the project demo at https://youtu.be/63lXmCE2WMo
+Check out the project demo at https://youtu.be/87POVM-wgbE
 
 # Deployed app link
 
