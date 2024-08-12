@@ -6,9 +6,8 @@ PyYAML==6.0
 scikit-learn==1.2.1
 streamlit==1.18.1
 xgboost==1.7.4
-imblearn
-pytest
-dill=0.3.6
+imblearn==0.12.3
+dill==0.3.6
 
 
 
