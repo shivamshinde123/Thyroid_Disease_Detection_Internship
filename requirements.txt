@@ -7,4 +7,5 @@ scikit-learn==1.2.1
 streamlit==1.18.1
 xgboost==1.7.4
 imblearn
+pytest
 
