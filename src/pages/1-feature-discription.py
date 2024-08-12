@@ -83,8 +83,6 @@ Other names for this test are a total T4 test, total T4 concentration, and a thy
             st.caption('T4U test is used by to dignore the thryroid disorder.')
         with st.expander('FTI'):
             st.caption('FTI test is used by to dignore the thryroid disorder.')
-        with st.expander('TBG'):
-            st.caption('TBG test is used by to dignore the thryroid disorder.')
 
 
 if __name__ == "__main__":
