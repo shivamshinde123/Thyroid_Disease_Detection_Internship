@@ -12,7 +12,7 @@ class DifferentThyroidConditions:
                 st.header('Different Thyroid Conditions')
                 st.markdown("""**Target metadata**  
                     The diagnosis consists of a string of letters indicating diagnosed conditions.
-                    A diagnosis "Other" indicates no condition requiring comment.  A diagnosis of the
+                    A diagnosis "Negative" indicates no condition requiring comment.  A diagnosis of the
                     form "X|Y" is interpreted as "consistent with X, but more likely Y".  The
                     conditions are divided into groups where each group corresponds to a class of
                     comments.
