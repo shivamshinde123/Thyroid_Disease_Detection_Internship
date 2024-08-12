@@ -8,4 +8,5 @@ streamlit==1.18.1
 xgboost==1.7.4
 imblearn
 pytest
+dill
 
