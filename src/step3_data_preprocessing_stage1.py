@@ -112,8 +112,10 @@ class PreprocessStage1:
             logger.error(e)
             raise e
 
-    def replacing_dash_with_others_in_target_column(self):
-        """This method is used replace the dash ('-') feature value in target column with 'Others' string
+    def remaining_preprocessing(self):
+        """This method is used for following preprocessing:
+            1. replace the dash ('-') feature value in target column with 'Negative' string
+            2. Duplicating minority classes with only single data point to facilitate the use of stratify in sklearn train_test_split
 
         Parameters
         -----------
@@ -135,9 +137,13 @@ class PreprocessStage1:
             df = pd.read_csv(os.path.join(main_data_foldername,
                                           interm2_data_foldername, interm2_data_filename))
 
-            # Replacing the dash ('-') from the target column with the 'Others' string
+            # Replacing the dash ('-') from the target column with the 'Negative' string
             df['target'] = np.where(
-                df['target'] == '-', 'Others', df['target'])
+                df['target'] == '-', 'Negative', df['target'])
+            
+            # Duplicating minority classes with only single data point to facilitate the use of stratify in sklearn train_test_split
+            mask = (df['target'] == 'LJ') | (df['target'] == 'GKJ') | (df['target'] == 'OI') | (df['target'] == 'D|R') | (df['target'] == 'E') | (df['target'] == 'P') | (df['target'] == 'MI') | (df['target'] == 'LJ')
+            df = pd.concat([df, df[mask], df[mask], df[mask], df[mask], df[mask], df[mask], df[mask], df[mask]])
 
             # Creating a Data folder to save the processed data
             Utility().create_folder(main_data_foldername)
@@ -148,11 +154,13 @@ class PreprocessStage1:
             df.to_csv(os.path.join(main_data_foldername, processed_stage1_data_foldername,
                                    processed_stage1_data_filename), index=False, sep=',')
 
-            logger.info('Replaced dash with others in target column.')
+            logger.info('Replaced dash with Negative in target column.')
 
         except Exception as e:
             logger.error(e)
             raise e
+        
+    
 
 
 if __name__ == '__main__':
@@ -164,4 +172,4 @@ if __name__ == '__main__':
     logger.info('Data preprocessing started.')
     process1.remove_unneccessary_columns(lst)
     process1.converting_illogical_ages_to_null()
-    process1.replacing_dash_with_others_in_target_column()
+    process1.remaining_preprocessing()

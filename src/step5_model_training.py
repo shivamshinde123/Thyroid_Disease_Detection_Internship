@@ -1,7 +1,7 @@
 
 from sklearn.pipeline import Pipeline
 from xgboost import XGBClassifier
-from sklearn.metrics import balanced_accuracy_score, precision_score, recall_score, f1_score, classification_report
+from sklearn.metrics import balanced_accuracy_score, precision_score, recall_score, f1_score, classification_report, accuracy_score
 import json
 import os
 import joblib
@@ -61,6 +61,7 @@ class ModelTraining:
                 'data_location']['processed_stage2_data_filename_y_train']
             processed_stage2_data_filename_y_val = params[
                 'data_location']['processed_stage2_data_filename_y_val']
+            random_state = params['General']['random_state']
 
             X_train = pd.read_csv(os.path.join(
                 main_data_foldername, processed_stage2_data_foldername, processed_stage2_data_filename_X_train)).values
@@ -76,17 +77,14 @@ class ModelTraining:
             with mlflow.start_run():
                 max_depth = params['model']['params']['max_depth']
                 n_estimators = params['model']['params']['n_estimators']
-                max_leaves = params['model']['params']['max_leaves']
-                learning_rate = params['model']['params']['learning_rate']
+                max_features = params['model']['params']['max_features']
 
                 mlflow.log_param('max_depth', max_depth)
                 mlflow.log_param('n_estimators', n_estimators)
-                mlflow.log_param('max_leaves', max_leaves)
-                mlflow.log_param('learning_rate', learning_rate)
 
 
                 xgboost_pipe = XGBClassifier(
-                    max_depth=max_depth, n_estimators=n_estimators, max_leaves=max_leaves, learning_rate=learning_rate)
+                    max_depth=max_depth, n_estimators=n_estimators, random_state=random_state)
                 logger.info('Model initialized')
 
                 # Fitting the model on train data
@@ -97,6 +95,7 @@ class ModelTraining:
                 y_pred = xgbc.predict(X_val)
 
                 balanced_accuracy_scr = balanced_accuracy_score(y_val, y_pred)
+                accuracy_scr = accuracy_score(y_val, y_pred)
                 p_scr = precision_score(y_val, y_pred, average='weighted')
                 r_scr = recall_score(y_val, y_pred, average='weighted')
                 f1_scr = f1_score(y_val, y_pred, average='weighted')
@@ -104,8 +103,9 @@ class ModelTraining:
                     y_val, y_pred, output_dict=True)
                 clf_report = pd.DataFrame(clf_report).transpose()
 
-                mlflow.log_metric('balanced_accuracy_score',
-                                  balanced_accuracy_scr)
+                mlflow.log_metric('balanced_accuracy_score',balanced_accuracy_scr)
+                mlflow.log_metric('accuracy_score',
+                                  accuracy_scr)
                 mlflow.log_metric('precision_score', p_scr)
                 mlflow.log_metric('recall_score', r_scr)
                 mlflow.log_metric('f1_score', f1_scr)
@@ -122,9 +122,10 @@ class ModelTraining:
             with open(os.path.join(metrics_folder, metrics_filename), 'w') as json_file:
                 metrics = dict()
                 metrics['balanced_accuracy_score'] = balanced_accuracy_scr
-                metrics['precision_score'] = p_scr
-                metrics['recall_score'] = r_scr
-                metrics['f1_score'] = f1_scr
+                metrics['accuracy_score'] = accuracy_scr
+                metrics['weighted_macro_precision_score'] = p_scr
+                metrics['weighted_macro_recall_score'] = r_scr
+                metrics['weighted_macro_f1_score'] = f1_scr
 
                 json.dump(metrics, json_file, indent=4)
 

@@ -1,6 +1,7 @@
 {
-    "balanced_accuracy_score": 0.804006605929683,
-    "precision_score": 0.9454601542419225,
-    "recall_score": 0.9455337690631809,
-    "f1_score": 0.9445470560154341
+    "balanced_accuracy_score": 0.7896190254793198,
+    "accuracy_score": 0.9298813376483279,
+    "weighted_macro_precision_score": 0.9330658068859616,
+    "weighted_macro_recall_score": 0.9298813376483279,
+    "weighted_macro_f1_score": 0.9301371664069831
 }

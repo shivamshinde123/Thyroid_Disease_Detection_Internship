@@ -7,11 +7,11 @@ import logging
 import shutil
 
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OrdinalEncoder
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OrdinalEncoder, LabelEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
+from imblearn.over_sampling import SMOTE
 
 
 logger = logging.getLogger(__name__)
@@ -41,8 +41,10 @@ class PreprocessStage2:
         """This method is used to perform the following operations:
 
         - encoding target feature
-        - encoding categorical and numerical features
+        - encoding categorical features
         - imputing categorical and numerical featurs
+        - scaling the numerical features
+        - over-sampling the minority classes
         - saving all the fitted transformers
         - saving all the processed data
         - removing interm data directories
@@ -79,27 +81,12 @@ class PreprocessStage2:
             logger.info(
                 'Splitted the data into independent and dependent features.')
 
-            # label encoding the target column
-            le_transformer = LabelEncoder()
-            y = le_transformer.fit_transform(y)
-
-            # Saving the label encoder transformer to pickle file
-            preprocess_pipe_foldername = params['preprocess']['preprocess_pipe_foldername']
-            le_transformer_filename = params['preprocess']['le_transformer_filename']
-
-            # Creating a Data folder to save the preprocess_pipeline
-            Utility().create_folder(preprocess_pipe_foldername)
-
-            # Saving the label encoder fitting earlier
-            with open(os.path.join(preprocess_pipe_foldername, le_transformer_filename), 'wb') as f:
-                dill.dump(le_transformer, f)
-
-            # Splitting the data inot the data for training and the data for validation
+            # Splitting the data into the data for training and the data for validation
             random_state = params['General']['random_state']
             test_size = params['General']['test_size']
 
             X_train, X_val, y_train, y_val = train_test_split(
-                X, y, random_state=random_state, test_size=test_size)
+                X, y, random_state=random_state, test_size=test_size, stratify=y)
             logger.info(
                 'Splitted the data into the data for training and the data for validation.')
 
@@ -128,16 +115,19 @@ class PreprocessStage2:
             # Creating numerical pipeline
             num_pipe = Pipeline([
                 ('num_imputer', SimpleImputer(missing_values=np.nan,
-                                              strategy='most_frequent', add_indicator=False))
+                                              strategy='most_frequent', add_indicator=False)),
+                ('std_scaler', StandardScaler())
             ])
             logger.info(
                 'Created a pipeline to preprocess the numerical features in the data.')
 
             # Creating a combined preprocess pipeline, training it and then saving it.
+            remainder_transformer = SimpleImputer(missing_values=np.nan, strategy='most_frequent',add_indicator=True)
+            
             preprocess_pipe = ColumnTransformer([
                 ('num_pipeline', num_pipe, num_cols),
                 ('cat_pipeline', cat_pipe, cat_cols)
-            ], remainder='passthrough')
+            ], remainder=remainder_transformer)
             logger.info(
                 'Combined the preprocess pipelines created for categorical and numerical data preprocessing.')
 
@@ -147,20 +137,79 @@ class PreprocessStage2:
                 'Trained the whole preprocess pipeline on the train data.')
             logger.info(
                 'Transformed the train data using fitted preprocess pipeline.')
-
+            
+            # Transforming validation data with trained preprocessing pipeline
             X_val = preprocess_pipe.transform(X_val)
             logger.info(
                 'Transformed the test data using fitted preprocess pipeline.')
-
+            
             # Saving the fitted preprocess pipeline
             preprocess_pipe_filename = params['preprocess']['preprocess_pipe_filename']
+            preprocess_pipe_foldername = params['preprocess']['preprocess_pipe_foldername']
             preprocess_pipe_path = os.path.join(
                 preprocess_pipe_foldername, preprocess_pipe_filename)
+            
+            if not os.path.exists(preprocess_pipe_foldername):
+                Utility().create_folder(preprocess_pipe_foldername)
 
             with open(preprocess_pipe_path, 'wb') as pickle_file:
                 dill.dump(preprocess_pipe, pickle_file)
             logger.info(
                 'Saved the fitted preprocess pipeline as a python pickle file.')
+            
+            # Oversampling the training data
+            oversampling_strategy = {
+                    'GK': 100,
+                    'AK': 100,
+                    'J': 100, 
+                    'B': 100,
+                    'MK': 100,
+                    'O': 100,
+                    'Q': 100,
+                    'C|I': 100,
+                    'KJ': 100,
+                    'GI': 100,
+                    'H|K': 100,
+                    'D': 100,
+                    'FK': 100,
+                    'C': 100,
+                    'P': 100,
+                    'MI': 100,
+                    'LJ': 100,
+                    'GKJ': 100,
+                    'D|R': 100,
+                    'E': 100,
+                    'OI': 100
+                }
+
+            smote = SMOTE(sampling_strategy=oversampling_strategy, k_neighbors = 4)
+            X_train, y_train = smote.fit_resample(X_train, y_train)
+            
+            logger.info('Oversampling operation performed on the training data.')
+            
+            # label encoding the target column
+            le_transformer = LabelEncoder()
+            y_train = le_transformer.fit_transform(y_train)
+            
+            logger.info('label encoder trained.')
+            logger.info('target feature from the training data transformed using trained label encoder')
+            
+            # tranforming the validation target feature with trained label encoder
+            y_val = le_transformer.transform(y_val)
+            logger.info('target feature from the test data transformed using trained label encoder')
+            
+            # Saving the label encoder transformer to pickle file
+            preprocess_pipe_foldername = params['preprocess']['preprocess_pipe_foldername']
+            le_transformer_filename = params['preprocess']['le_transformer_filename']
+
+            # Creating a Data folder to save the preprocess_pipeline
+            Utility().create_folder(preprocess_pipe_foldername)
+
+            # Saving the label encoder fitting earlier
+            with open(os.path.join(preprocess_pipe_foldername, le_transformer_filename), 'wb') as f:
+                dill.dump(le_transformer, f)
+                
+            logger.info('trained label encoder saved as a python pickle file.')
 
             # saving the final processes data
             # Saving X_train, X_val, y_train, y_val

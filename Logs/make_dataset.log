@@ -1,2 +1,2 @@
-2023-02-22 14:34:42,649 : INFO : step1_make_dataset.py : Loading of data started.
-2023-02-22 14:34:45,037 : INFO : step1_make_dataset.py : Data loading completed and data saved to the directory Data/raw
+2024-08-11 21:56:34,016 : INFO : step1_make_dataset.py : Loading of data started.
+2024-08-11 21:56:37,086 : INFO : step1_make_dataset.py : Data loading completed and data saved to the directory Data/raw
