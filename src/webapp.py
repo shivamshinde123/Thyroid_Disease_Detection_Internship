@@ -60,15 +60,9 @@ class WebApp:
                                 max_value=2.33, step=0.01, value=1.0)
             FTI = col1.slider('FTI', min_value=1.4,
                                 max_value=881.0, step=0.01, value=300.0)
-            TBG = col1.slider('TBG', min_value=0.1,
-                                max_value=200.0, step=0.01, value=100.0)
 
             I131_treatment = col2.selectbox(
                 'I131_treatment', ['True', 'False'])
-            query_hypothyroid = col2.selectbox(
-                'query_hypothyroid', ['True', 'False'])
-            query_hyperthyroid = col2.selectbox(
-                'query_hyperthyroid', ['True', 'False'])
             lithium = col2.selectbox('lithium', ['True', 'False'])
             goitre = col2.selectbox('goitre', ['True', 'False'])
             tumor = col2.selectbox('tumor', ['True', 'False'])
@@ -79,8 +73,6 @@ class WebApp:
             sex = col3.selectbox('sex', ['Male', 'Female'])
             on_thyroxine = col3.selectbox(
                 'on_thyroxine', ['True', 'False'])
-            query_on_thyroxine = col3.selectbox(
-                'query_on_thyroxine', ['True', 'False'])
             on_antithyroid_meds = col3.selectbox(
                 'on_antithyroid_meds', ['True', 'False'])
             sick = col3.selectbox('sick', ['True', 'False'])
@@ -91,18 +83,16 @@ class WebApp:
 
             thyroid_surgery = col3.selectbox(
                 'thyroid_surgery', ['True', 'False'])
-            referral_source = col3.selectbox(
-                'referral_source', ['SVI', 'SVHC', 'STMW', 'SVHD', 'WEST', 'other'])
 
-            input = np.array([[age, sex, on_thyroxine, query_on_thyroxine, on_antithyroid_meds, sick,
-                                pregnant, thyroid_surgery, I131_treatment, query_hypothyroid, query_hyperthyroid,
-                                lithium, goitre, tumor, hypopituitary, psych, TSH, T3, TT4, T4U, FTI,
-                                TBG, referral_source]])
+            input = np.array([[age, sex, on_thyroxine, on_antithyroid_meds, sick,
+                                pregnant, thyroid_surgery, I131_treatment,
+                                lithium, goitre, tumor, hypopituitary, psych, TSH, T3, TT4, T4U, FTI
+                                ]])
 
-            input = pd.DataFrame(input, columns=['age', 'sex', 'on_thyroxine', 'query_on_thyroxine', 'on_antithyroid_meds', 'sick',
-                                                    'pregnant', 'thyroid_surgery', 'I131_treatment', 'query_hypothyroid', 'query_hyperthyroid',
-                                                    'lithium', 'goitre', 'tumor', 'hypopituitary', 'psych', 'TSH', 'T3', 'TT4', 'T4U', 'FTI',
-                                                    'TBG', 'referral_source'])
+            input = pd.DataFrame(input, columns=['age', 'sex', 'on_thyroxine', 'on_antithyroid_meds', 'sick',
+                                                    'pregnant', 'thyroid_surgery', 'I131_treatment',
+                                                    'lithium', 'goitre', 'tumor', 'hypopituitary', 'psych', 'TSH', 'T3', 'TT4', 'T4U', 'FTI'
+                                                    ])
 
             predict = st.button('Make a Prediction')
 
@@ -145,27 +135,27 @@ class WebApp:
 
                     # making the predictions understandable for the user
                     thyroid_condition_dict = dict()
-                    thyroid_condition_dict['A'] = 'hyperthyroid'
-                    thyroid_condition_dict['B'] = 'T3 toxic'
-                    thyroid_condition_dict['C'] = 'toxic goitre'
-                    thyroid_condition_dict['D'] = 'secondary toxic'
-                    thyroid_condition_dict['E'] = 'hypothyroid'
-                    thyroid_condition_dict['F'] = 'primary hypothyroid'
-                    thyroid_condition_dict['G'] = 'compensated hypothyroid'
-                    thyroid_condition_dict['H'] = 'secondary hypothyroid'
-                    thyroid_condition_dict['I'] = 'increased binding protein'
-                    thyroid_condition_dict['J'] = 'decreased binding protein'
-                    thyroid_condition_dict['K'] = 'concurrent non-thyroidal illness'
-                    thyroid_condition_dict['L'] = 'consistent with replacement therapy'
-                    thyroid_condition_dict['M'] = 'underreplaced'
-                    thyroid_condition_dict['N'] = 'overreplaced'
-                    thyroid_condition_dict['O'] = 'antithyroid drugs'
-                    thyroid_condition_dict['P'] = 'I131 treatment'
-                    thyroid_condition_dict['Q'] = 'surgery'
-                    thyroid_condition_dict['R'] = 'discordant assay results'
-                    thyroid_condition_dict['S'] = 'elevated TBG'
-                    thyroid_condition_dict['T'] = 'elevated thyroid hormones'
-                    thyroid_condition_dict['Others'] = 'no condition requiring comment'
+                    thyroid_condition_dict['A'] = 'Hyperthyroid'
+                    thyroid_condition_dict['B'] = 'T3 Toxic'
+                    thyroid_condition_dict['C'] = 'Toxic Goitre'
+                    thyroid_condition_dict['D'] = 'Secondary Toxic'
+                    thyroid_condition_dict['E'] = 'Hypothyroid'
+                    thyroid_condition_dict['F'] = 'Primary Hypothyroid'
+                    thyroid_condition_dict['G'] = 'Compensated Hypothyroid'
+                    thyroid_condition_dict['H'] = 'Secondary Hypothyroid'
+                    thyroid_condition_dict['I'] = 'Increased Binding Protein'
+                    thyroid_condition_dict['J'] = 'Decreased Binding Protein'
+                    thyroid_condition_dict['K'] = 'Concurrent non-thyroidal illness'
+                    thyroid_condition_dict['L'] = 'Consistent with Replacement Therapy'
+                    thyroid_condition_dict['M'] = 'Underreplaced'
+                    thyroid_condition_dict['N'] = 'Overreplaced'
+                    thyroid_condition_dict['O'] = 'Antithyroid Drugs'
+                    thyroid_condition_dict['P'] = 'I131 Treatment'
+                    thyroid_condition_dict['Q'] = 'Surgery'
+                    thyroid_condition_dict['R'] = 'Discordant Assay Results'
+                    thyroid_condition_dict['S'] = 'Elevated TBG'
+                    thyroid_condition_dict['T'] = 'Elevated Thyroid Hormones'
+                    thyroid_condition_dict['Negative'] = 'Patient is most likely not suffering from Thyroid Disease.'
 
                     prediction = thyroid_condition_dict[prediction[0]]
 
